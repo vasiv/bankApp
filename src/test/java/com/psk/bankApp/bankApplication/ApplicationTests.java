@@ -1,4 +1,4 @@
-package com.pdk.bankApp.bankApplication;
+package com.psk.bankApp.bankApplication;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

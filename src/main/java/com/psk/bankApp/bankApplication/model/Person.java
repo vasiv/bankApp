@@ -1,8 +1,9 @@
-package com.pdk.bankApp.bankApplication.model;
+package com.psk.bankApp.bankApplication.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@Entity
 public class Person {
 
     @Id
