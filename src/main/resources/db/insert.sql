@@ -1,1 +1,2 @@
-INSERT INTO "person" (person_id,login,firstName,secondName,lastName,personalIdentityNumber,email,isActive) VALUES (1,'exampLogin','Szymon','','Ciepluch','12345678912','examp@examp.com',true);
+INSERT INTO "person" (person_id,login,first_name,second_name,last_name,personal_identity_number,email,is_active) VALUES (1,'testCustomer','Szymon','','Ciepluch','12345678912','examp@examp.com',true);
+INSERT INTO "person" (person_id,login,first_name,second_name,last_name,personal_identity_number,email,is_active) VALUES (1,'testCustomer2','Albert','','Bińkowski','12345678312','examp@examp.com',true);

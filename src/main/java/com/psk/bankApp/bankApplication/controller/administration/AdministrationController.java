@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/admin")
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:5555")
 public class AdministrationController {
 
     @Autowired

@@ -3,3 +3,18 @@ spring:
         url: jdbc:postgresql://localhost/bankAppDB
         username: postgres
         password: postgres
+
+security:
+  oauth2:
+    client:
+      access-token-uri: https://dev-602945.oktapreview.com/oauth2/default/v1/token
+      user-authorization-uri: https://dev-602945.oktapreview.com/oauth2/default/v1/authorize
+      client-id: {clientId}
+      scope: openid profile email
+    resource:
+      user-info-uri: https://dev-602945.oktapreview.com/oauth2/default/v1/userinfo
+      token-info-uri: https://dev-602945.oktapreview.com/oauth2/default/v1/introspect
+      prefer-token-info: false
+
+server:
+  port: 8081
