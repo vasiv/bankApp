@@ -14,7 +14,7 @@ CREATE TABLE person (
     person_id SERIAL PRIMARY KEY,
     login VARCHAR(255) UNIQUE NOT NULL,
     first_name VARCHAR(255) NOT NULL,
-    second_name VARCHAR(255) NOT NULL,
+    second_name VARCHAR(255),
     last_name VARCHAR(255) NOT NULL,
     address INTEGER REFERENCES address(address_id),
     personal_identity_number VARCHAR(255) UNIQUE NOT NULL,

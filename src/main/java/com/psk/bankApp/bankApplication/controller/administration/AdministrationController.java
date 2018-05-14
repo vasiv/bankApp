@@ -3,34 +3,27 @@ package com.psk.bankApp.bankApplication.controller.administration;
 import com.psk.bankApp.bankApplication.model.Person;
 import com.psk.bankApp.bankApplication.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
-@CrossOrigin(origins = "http://localhost:5555")
+@RequestMapping("/users")
 public class AdministrationController {
 
     @Autowired
     PersonRepository personRepository;
 
-    @RequestMapping(value = "users/{1}", method = RequestMethod.GET)
-    public ResponseEntity<Person> getUser(@PathVariable Long id){
-        return personRepository.findOnePersonById(id)
-                .map(todo -> ResponseEntity.ok().body(todo))
-                .orElse(ResponseEntity.notFound().build());
-    }
+    @GetMapping(value = "/all")
+    List<Person> getAllUsers(){
+        List<Person> persons  =  personRepository.findAll();
+        System.out.println(persons.toString());
 
-    @RequestMapping(value = "/users/add", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Person> createUserAccount(@RequestBody Person person, HttpServletRequest request, HttpServletResponse response) {
-        return personRepository.save(person)
-                .map(todo -> ResponseEntity.ok().body(todo))
-                .orElse(ResponseEntity.notFound().build());
-    }
+        Person person =personRepository.findOnePersonById(1L).get();
+        System.out.println("person: " + person.getFirstName());
+        return persons;
 
+    }
 }
