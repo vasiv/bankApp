@@ -1,16 +1,36 @@
 spring:
     datasource:
-        url: jdbc:postgresql://localhost:5433/bankAppDB
-        username: postgres
-        password: postgres
+        url: jdbc:mysql://localhost:3306/bankApp?useSSL=false
+        username: root
     jpa:
-      generate-ddl: true
-    hibernate:
-            generateDdl: false
-
-hibernate:
-  hbm2ddl:
-    auto: create-drop
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+          ddl-auto: create-drop
 
 server:
   port: 8081
+
+security:
+  oauth2:
+    client:
+      access-token-uri: https://dev-602945.oktapreview.com/oauth2/defualt/v1/token
+      user-authorization-uri: https://dev-602945.oktapreview.com/oauth2/default/v1/authorize
+      client-id: 0oaez9p2ha6CO1no10h7
+      clientAuthenticationScheme: form
+      scope: openid profile email
+    resource:
+      user-info-uri: https://dev-602945.oktapreview.com/oauth2/default/v1/userinfo
+      token-info-uri: https://dev-602945.oktapreview.com/oauth2/default/v1/introspect
+      prefer-token-info: false
+#okta:
+#  oauth2:
+#    clientId: 0oaez9p2ha6CO1no10h7
+#    issuer: https://dev-602945.oktapreview.com/oauth2/default
+#
+#security:
+#  okta:
+#    oauth2:
+#      clientId: 0oaez9p2ha6CO1no10h7
+#      issuer: https://dev-602945.oktapreview.com/oauth2/default
+

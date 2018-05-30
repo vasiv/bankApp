@@ -11,31 +11,29 @@ CREATE TABLE address (
 
 DROP TABLE IF EXISTS person CASCADE;
 CREATE TABLE person (
-    person_id SERIAL PRIMARY KEY,
-    login VARCHAR(255) UNIQUE NOT NULL,
     first_name VARCHAR(255) NOT NULL,
     second_name VARCHAR(255),
     last_name VARCHAR(255) NOT NULL,
     address INTEGER REFERENCES address(address_id),
-    personal_identity_number VARCHAR(255) UNIQUE NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    personal_identity_number VARCHAR(255) NOT NULL,
+    email VARCHAR(255) PRIMARY KEY,
     is_active BOOLEAN
 );
 
 DROP TABLE IF EXISTS account_type CASCADE;
 CREATE TABLE account_type (
     account_type_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    description VARCHAR(500)
+    name VARCHAR(255) UNIQUE NOT NULL,
+    description VARCHAR(500) NOT NULL
 );
 
 DROP TABLE IF EXISTS account CASCADE;
 CREATE TABLE account (
     account_id SERIAL PRIMARY KEY,
-    number VARCHAR(255) NOT NULL,
-    funds MONEY  NOT NULL,
+    number VARCHAR(255) UNIQUE NOT NULL,
+    funds DECIMAL(10,2)  NOT NULL,
     account_type INTEGER REFERENCES account_type(account_type_id),
-    owner INTEGER REFERENCES person(person_id)
+    owner VARCHAR(255) REFERENCES person(email)
 );
 
 DROP TABLE IF EXISTS defined_receiver CASCADE;
@@ -66,15 +64,11 @@ CREATE TABLE defined_receiver (
 DROP TABLE IF EXISTS transfer CASCADE;
 CREATE TABLE transfer (
     transfer_id SERIAL PRIMARY KEY,
-    senderAccountNumber VARCHAR(255) NOT NULL,
-    receiverAccountNumber VARCHAR(255) NOT NULL,
-    nameReceiver VARCHAR(255) NOT NULL,
-    date VARCHAR(255) NOT NULL,
-    transferAmount VARCHAR(255) NOT NULL,
-    isAuthorization BOOLEAN,
-    isPeriodic BOOLEAN,
-
-    // czy tutaj klucz obcy z przelewu okresowego oraz zdefiniowanych odbiorców?
+    sender INTEGER NOT NULL REFERENCES account(account_id),
+    receiver INTEGER NOT NULL REFERENCES account(account_id),
+    date DATE NOT NULL,
+    transferAmount DECIMAL(10,2) NOT NULL,
+    isPeriodic BOOLEAN NOT NULL
 );
 
 --DROP TABLE IF EXISTS loan CASCADE;

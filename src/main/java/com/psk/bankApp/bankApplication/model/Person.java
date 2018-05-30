@@ -14,13 +14,8 @@ import javax.validation.constraints.NotNull;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "person_id")
-    private Long id;
-
-    @Column(unique = true)
     @NotNull
-    private String login;
+    private String email;
 
     @Column(name = "first_name")
     @NotNull
@@ -38,8 +33,9 @@ public class Person {
     @NotNull
     private Address address;
 
+    @Column(name = "personal_identity_number", unique = true)
     @NotNull
-    private String email;
+    private String personalIdentityNumber;
 
     @Column(name = "is_active")
     @NotNull
