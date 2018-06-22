@@ -19,7 +19,6 @@ public class Account {
     @Column(name = "account_id")
     private Long id;
 
-    @UniqueElements
     @NotNull
     @Column (unique = true)
     private String number;

@@ -34,6 +34,7 @@ CREATE TABLE account (
     funds DECIMAL(10,2)  NOT NULL,
     account_type INTEGER REFERENCES account_type(account_type_id),
     owner VARCHAR(255) REFERENCES person(email)
+    is_active BOOLEAN;
 );
 
 DROP TABLE IF EXISTS defined_receiver CASCADE;
@@ -67,8 +68,22 @@ CREATE TABLE transfer (
     sender INTEGER NOT NULL REFERENCES account(account_id),
     receiver INTEGER NOT NULL REFERENCES account(account_id),
     date DATE NOT NULL,
-    transferAmount DECIMAL(10,2) NOT NULL,
-    isPeriodic BOOLEAN NOT NULL
+    transfer_amount DECIMAL(10,2) NOT NULL,
+    description VARCHAR (25) NOT NULL,
+    is_periodic BOOLEAN NOT NULL
+);
+
+DROP TABLE IF EXISTS role CASCADE;
+CREATE TABLE role (
+    role_id SERIAL PRIMARY KEY,
+    role VARCHAR (25) NOT NULL
+);
+
+DROP TABLE IF EXISTS people_with_roles CASCADE;
+CREATE TABLE people_with_roles (
+    people_with_roles_id SERIAL PRIMARY KEY,
+    role_id INTEGER NOT NULL REFERENCES role(role_id),
+    person_id VARCHAR (25) NOT NULL REFERENCES person(email)
 );
 
 --DROP TABLE IF EXISTS loan CASCADE;
