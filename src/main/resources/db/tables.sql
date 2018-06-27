@@ -17,7 +17,8 @@ CREATE TABLE person (
     address INTEGER REFERENCES address(address_id),
     personal_identity_number VARCHAR(255) NOT NULL,
     email VARCHAR(255) PRIMARY KEY,
-    is_active BOOLEAN
+    is_active BOOLEAN,
+    is_consultant BOOLEAN
 );
 
 DROP TABLE IF EXISTS account_type CASCADE;

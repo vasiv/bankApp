@@ -1,11 +1,13 @@
 package com.psk.bankApp.bankApplication.controller.administration;
 
+import com.psk.bankApp.bankApplication.model.Account;
 import com.psk.bankApp.bankApplication.model.Transfer;
 import com.psk.bankApp.bankApplication.model.TransferDTO;
 import com.psk.bankApp.bankApplication.repository.TransferRepository;
 import com.psk.bankApp.bankApplication.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +30,11 @@ public class TransferController {
     @PostMapping()
     ResponseEntity<?> performTransfer(@RequestBody TransferDTO transferDto) {
         Transfer transfer = transferService.performTransfer(transferDto);
-        transferRepository.save(transfer);
-        System.out.println(transfer);
-        return null;
+        if (transfer != null) {
+            transferRepository.save(transfer);
+            return new ResponseEntity<>(transfer, HttpStatus.OK);
+        }
+        return new ResponseEntity<Account>(HttpStatus.NOT_ACCEPTABLE);
     }
 }
 

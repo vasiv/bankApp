@@ -23,6 +23,14 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @Transactional
     @Query(value = "update account set funds = ?1 where account_id = ?2", nativeQuery = true)
     void updateFunds(Double funds, Long id);
+
+    @Query(value = "select * from account where is_active = 0", nativeQuery = true)
+    List<Account> getInactiveAccounts();
+
+    @Modifying
+    @Transactional
+    @Query(value = "update account set is_active = 1 where account_id = ?1", nativeQuery = true)
+    void activateAcccount(Long id);
 }
 
 

@@ -33,7 +33,7 @@ public class TransferServiceImpl implements TransferService {
         Account receiver = accountRepository.findByAccountNumber(transferDTO.getReceiver());
         Double transferAmount = Double.parseDouble(transferDTO.getTransferAmount());
         if(sender.getFunds() < transferAmount)
-            System.out.println("Za duzo przelewasz ziomek");
+            return null;
         Double senderFunds = sender.getFunds();
         Double receiverFunds = receiver.getFunds();
         senderFunds -= transferAmount;

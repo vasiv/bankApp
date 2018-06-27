@@ -14,6 +14,14 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode
 public class Account {
 
+    public Account(String number, AccountType accountType, Person owner){
+        this.number = number;
+        this.accountType = accountType;
+        this.owner = owner;
+        funds = 0.0;
+        isActive = false;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id")
@@ -34,4 +42,7 @@ public class Account {
     @JoinColumn(name = "owner")
     @NotNull
     private Person owner;
+
+    @Column(name = "is_active")
+    private boolean isActive;
 }

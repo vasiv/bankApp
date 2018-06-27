@@ -8,6 +8,7 @@ import com.psk.bankApp.bankApplication.repository.AccountRepository;
 import com.psk.bankApp.bankApplication.repository.AccountTypeRepository;
 import com.psk.bankApp.bankApplication.repository.PersonRepository;
 import com.psk.bankApp.bankApplication.repository.TransferRepository;
+import com.psk.bankApp.bankApplication.service.AccountService;
 import com.psk.bankApp.bankApplication.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
@@ -38,6 +39,9 @@ public class AccountController {
     SessionService sessionService;
 
     @Autowired
+    AccountService accountService;
+
+    @Autowired
     TransferRepository transferRepository;
 
     @RequestMapping(value = "/me", method = RequestMethod.GET)
@@ -61,9 +65,26 @@ public class AccountController {
 
     @RequestMapping(value = "history/{id}", method = RequestMethod.GET)
     List<Transfer> getAccountHistory(OAuth2Authentication authentication, @PathVariable("id") long id){
-        String sessionUserEmail = sessionService.getSessionUserEmail(authentication);
         List<Transfer> transfers = transferRepository.getAllForAccount(id);
         return transfers;
     }
 
+    @RequestMapping(value = "inactive", method = RequestMethod.GET)
+    List<Account> getInactiveAccounts(){
+        List<Account> accounts = accountRepository.getInactiveAccounts();
+        return accounts;
+    }
+
+    @RequestMapping(value = "activate/{id}", method = RequestMethod.GET)
+    void activateAcccount(@PathVariable("id") long id){
+        accountRepository.activateAcccount(id);
+    }
+
+    @RequestMapping(value = "create", method = RequestMethod.GET)
+    void create(OAuth2Authentication authentication){
+        String sessionUserEmail = sessionService.getSessionUserEmail(authentication);
+        Person creator  =  personRepository.findById(sessionUserEmail).get();
+        Account account = accountService.create(creator);
+        accountRepository.save(account);
+    }
 }

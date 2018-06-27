@@ -53,4 +53,7 @@ public class Person {
             joinColumns = { @JoinColumn(name = "person_id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private Set<Role> roles = new HashSet<>();
+
+    @Column(name = "is_consultant")
+    private boolean isConsultant;
 }
